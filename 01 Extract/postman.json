@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "bd6356c8-f235-4e99-8b57-40f50f76f2e0",
+		"name": "Strava Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login via browser",
+			"id": "c1d8ca17-4b3a-48e9-928b-c5dbb51ffc2c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.strava.com/oauth/authorize?client_id=163069&redirect_uri=http://localhost/exchangetoken&response_type=code&scope=activity:read_all",
+					"protocol": "https",
+					"host": [
+						"www",
+						"strava",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "163069",
+							"description": "id of my strava APP"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "http://localhost/exchangetoken"
+						},
+						{
+							"key": "response_type",
+							"value": "code"
+						},
+						{
+							"key": "scope",
+							"value": "activity:read_all"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "738ad527-749a-4057-b75c-48a2ffebd2bc",
+						"exec": [
+							"let jsonResponse = pm.response.json()\r",
+							"\r",
+							"if(pm.response.code=200){\r",
+							"    pm.environment.set(\"refreshToken\", jsonResponse.refresh_token);\r",
+							"    pm.environment.set(\"accessToken\", jsonResponse.access_token);\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "16c54a7d-281f-4945-bd2b-bb46fdecdd35",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://www.strava.com/oauth/token?client_id={{clientId}}&client_secret={{clientSecret}}&code={{authorizationCode}}&grant_type=authorization_code",
+					"protocol": "https",
+					"host": [
+						"www",
+						"strava",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "{{clientId}}"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{clientSecret}}"
+						},
+						{
+							"key": "code",
+							"value": "{{authorizationCode}}"
+						},
+						{
+							"key": "grant_type",
+							"value": "authorization_code"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login refresh",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0b65510c-0d1b-4722-bc59-3c0b2462657e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "88ee2637-bf8f-41f2-bc7d-135ecb1a8c5c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://www.strava.com/oauth/token?client_id={{clientId}}&client_secret={{clientSecret}}&code={{authorizationCode}}&grant_type=refresh_token&refresh_token={{refreshToken}}",
+					"protocol": "https",
+					"host": [
+						"www",
+						"strava",
+						"com"
+					],
+					"path": [
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "{{clientId}}"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{clientSecret}}"
+						},
+						{
+							"key": "code",
+							"value": "{{authorizationCode}}"
+						},
+						{
+							"key": "grant_type",
+							"value": "refresh_token"
+						},
+						{
+							"key": "refresh_token",
+							"value": "{{refreshToken}}",
+							"type": "text"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Data fetch",
+			"id": "6fe75531-7081-4388-ab00-a2b1d1eb14b1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.strava.com/api/v3/athlete/activities?access_token={{accessToken}}&per_page=60",
+					"protocol": "https",
+					"host": [
+						"www",
+						"strava",
+						"com"
+					],
+					"path": [
+						"api",
+						"v3",
+						"athlete",
+						"activities"
+					],
+					"query": [
+						{
+							"key": "access_token",
+							"value": "{{accessToken}}"
+						},
+						{
+							"key": "per_page",
+							"value": "60",
+							"description": "last 60 activities,  no pagination",
+							"type": "text"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
