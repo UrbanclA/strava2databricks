@@ -16,7 +16,9 @@ To get started, go to the `00 Analyze` folder -- there you can explore data thro
 
 
 ## 0 Introduction
-Extracting, transforming and visualizing data from Strava using Postman and DataBricks
+Extracting, transforming and visualizing data from Strava using Postman and DataBricks. 
+
+Tools that were used and documentation (tutorials, links etc) - in another .md file, ADD EVERYTHING from gdrive notes
 
 ## 1 - extract from Strava with Postman
 
