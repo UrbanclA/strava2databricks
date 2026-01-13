@@ -1,0 +1,310 @@
+{
+  "datasets": [
+    {
+      "name": "42e4505d",
+      "displayName": "fact_activity",
+      "queryLines": [
+        "SELECT * FROM strava.gold.fact_activity"
+      ],
+      "catalog": "strava",
+      "schema": "gold"
+    }
+  ],
+  "pages": [
+    {
+      "name": "69cbd07c",
+      "displayName": "Activities",
+      "layout": [
+        {
+          "widget": {
+            "name": "8cb3ccaa",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "42e4505d",
+                  "fields": [
+                    {
+                      "name": "sum(distance_m)",
+                      "expression": "SUM(`distance_m`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(distance_m)"
+                }
+              },
+              "frame": {
+                "title": "Total Distance Covered",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 0,
+            "width": 1,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "a39ad104",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "42e4505d",
+                  "fields": [
+                    {
+                      "name": "sport_type",
+                      "expression": "`sport_type`"
+                    },
+                    {
+                      "name": "avg(average_speed_kmh)",
+                      "expression": "AVG(`average_speed_kmh`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sport_type",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(average_speed_kmh)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Average Speed by Sport Type",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 3,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "346cbeb7",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "42e4505d",
+                  "fields": [
+                    {
+                      "name": "activity_name",
+                      "expression": "`activity_name`"
+                    },
+                    {
+                      "name": "sum(elevation_gain_m)",
+                      "expression": "SUM(`elevation_gain_m`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "activity_name",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(elevation_gain_m)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Elevation Gain by Activity",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 6,
+            "height": 11
+          }
+        },
+        {
+          "widget": {
+            "name": "0910296b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "42e4505d",
+                  "fields": [
+                    {
+                      "name": "count(activity_id)",
+                      "expression": "COUNT(`activity_id`)"
+                    },
+                    {
+                      "name": "activity_type",
+                      "expression": "`activity_type`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "count(activity_id)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "activity_type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "title": "Activity Types Distribution",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "cfee09b3",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "42e4505d",
+                  "fields": [
+                    {
+                      "name": "activity_date",
+                      "expression": "`activity_date`"
+                    },
+                    {
+                      "name": "count(activity_id)",
+                      "expression": "COUNT(`activity_id`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "activity_date",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(activity_id)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "frame": {
+                "title": "Activities Over Time",
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 0,
+            "width": 4,
+            "height": 7
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS"
+    },
+    {
+      "name": "dd733a0d",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "49eb3510",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
