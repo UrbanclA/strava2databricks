@@ -24,7 +24,7 @@ Tools that were used and documentation (tutorials, links etc) - in another .md f
 
 ## 01 - extract from Strava with Postman
 
-Need to add description of the process, for now check [useful_links](/Workspace/Users/amadej.urbancl@gmail.com/Strava_ETL/strava2databricks/useful_links.md) for more in depth youtube tutorial that I followed
+Need to add description of the process, for now check [useful_links](useful_links.md) for more in depth youtube tutorial that I followed
 
 ## 02 - bronze - Import json file to DataBricks Volume
 utils file to add dataframe, add timestamp
