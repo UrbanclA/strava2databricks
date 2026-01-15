@@ -2,9 +2,9 @@
 This folder defines all source code for the 'strava2databricks' pipeline:
 
 - `00 Analyze`: Ad-hoc notebooks used to explore the data processed by this pipeline, from start to finish
-- `01 Extract`: KnowHow on how to import data from source. In this case, extraction is done with Postman.
+- `01 Extract`: KnowHow on how to import data from source. In this case, extraction is done with Postman. 
 - `02 Transform`: All dataset definitions and transformations.
-- `03 Transform`: All dataset definitions and transformations.
+- `03 Load`: Visualized data via dashboards.
 
 ## Getting Started
 
@@ -15,21 +15,35 @@ To get started, go to the `00 Analyze` folder -- there you can explore data thro
   Read more about the syntax at https://docs.databricks.com/dlt/sql-ref.html.
 
 
-## 0 Introduction
-Extracting, transforming and visualizing data from Strava using Postman and DataBricks. 
+## Introduction
+Extracting, transforming and visualizing data from personal Strava account. 
+This dataflow is composed of restAPI to get .json filesPostman and processing through Databricks platform. 
 
 Tools that were used and documentation (tutorials, links etc) - in another .md file, ADD EVERYTHING from gdrive notes
+### Roadmap - soon to be added, draft is done
 
-## 1 - extract from Strava with Postman
+## 01 - extract from Strava with Postman
 
-## 2 - Importing json file to DataBricks Volume (bronze)
+Need to add description of the process, for now check [useful_links](/Workspace/Users/amadej.urbancl@gmail.com/Strava_ETL/strava2databricks/useful_links.md) for more in depth youtube tutorial that I followed
+
+## 02 - bronze - Import json file to DataBricks Volume
 utils file to add dataframe, add timestamp
 ### Creating a Parquet file
-create delta file
+create delta file following databricks recommendations [useful_links](/Workspace/Users/amadej.urbancl@gmail.com/Strava_ETL/strava2databricks/useful_links.md)
 
-- https://docs.databricks.com/aws/en/files/files-recommendations
+`HotTip`
+Initially, when I was importing the .json file to the Databricks volume, there was an error. After some research, it seemed like an issue with Serverless cluster and the file being too big to process. Probably Databricks free edition has some limitations in that regard, so I managed to fix it, setting environment memory from standard (16GB) to High (32 GB)
 
-Error from my research had to only do with Serverless cluster and file being to big to process, that is why I changed environment memory from standard (16GB) to High (32 GB)
-<img width="493" height="647" alt="image" src="https://github.com/user-attachments/assets/20d5bc64-a079-41c8-8181-bd00606c46ea" />
-### transform and load to delta table (silver)
-## 3 - Visualizing in dashboard
+<img width="350" height="455" alt="image" src="https://github.com/user-attachments/assets/20d5bc64-a079-41c8-8181-bd00606c46ea" />
+
+### 02 - silver - transform and load to delta table
+
+Clean the data, add hashkeys and hashdiffs - soon
+
+### 02 - gold - create dimensions and fact tables
+
+transform, calculate, filter, round the numbers, mready for dashboard ingestion
+
+## 3 - Visualize data in dashboard
+
+Simple dashboard to start, upgrade later in the process
