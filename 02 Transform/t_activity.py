@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC ## Data Transformation - B2S - ACTIVITY
+# MAGIC ## Data Transformation - B2S2G - ACTIVITY
 
 # COMMAND ----------
 
