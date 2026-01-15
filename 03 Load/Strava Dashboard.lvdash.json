@@ -38,7 +38,15 @@
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "sum(distance_m)"
+                  "fieldName": "sum(distance_m)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "compact",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  }
                 }
               },
               "frame": {
@@ -103,7 +111,7 @@
             }
           },
           "position": {
-            "x": 0,
+            "x": 3,
             "y": 7,
             "width": 3,
             "height": 7
@@ -270,6 +278,59 @@
             "width": 4,
             "height": 7
           }
+        },
+        {
+          "widget": {
+            "name": "max-speed",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "42e4505d",
+                  "fields": [
+                    {
+                      "name": "max(average_speed_kmh)",
+                      "expression": "MAX(`average_speed_kmh`)"
+                    },
+                    {
+                      "name": "max(max_speed_kmh)",
+                      "expression": "MAX(`max_speed_kmh`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "max(max_speed_kmh)"
+                },
+                "target": {
+                  "fieldName": "max(average_speed_kmh)"
+                }
+              },
+              "frame": {
+                "title": "Max speed recorded",
+                "showTitle": true,
+                "showDescription": true,
+                "description": "Compared to max average speed recorded"
+              }
+            },
+            "specExtensions": {
+              "widgetBackgroundColor": {
+                "dark": "#498BC2"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 3,
+            "height": 7
+          }
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS"
@@ -277,27 +338,6 @@
     {
       "name": "dd733a0d",
       "displayName": "Global Filters",
-      "layout": [
-        {
-          "widget": {
-            "name": "49eb3510",
-            "spec": {
-              "version": 2,
-              "widgetType": "filter-single-select",
-              "encodings": {},
-              "frame": {
-                "showTitle": true
-              }
-            }
-          },
-          "position": {
-            "x": 0,
-            "y": 0,
-            "width": 1,
-            "height": 2
-          }
-        }
-      ],
       "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
     }
   ],
