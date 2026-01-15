@@ -24,12 +24,12 @@ Tools that were used and documentation (tutorials, links etc) - in another .md f
 
 ## 01 - extract from Strava with Postman
 
-Need to add description of the process, for now check [useful_links](useful_links.md) for more in depth youtube tutorial that I followed
+Need to add description of the process, for now check [useful_links](https://github.com/UrbanclA/strava2databricks/blob/28721dddac559212841b1857996ceb8813dfd908/useful_links.md) for more in depth youtube tutorial that I followed
 
 ## 02 - bronze - Import json file to DataBricks Volume
 utils file to add dataframe, add timestamp
 ### Creating a Parquet file
-create delta file following databricks recommendations [useful_links](useful_links.md)
+create delta file following databricks recommendations [useful_links](https://github.com/UrbanclA/strava2databricks/blob/28721dddac559212841b1857996ceb8813dfd908/useful_links.md)
 
 `HotTip`
 Initially, when I was importing the .json file to the Databricks volume, there was an error. After some research, it seemed like an issue with Serverless cluster and the file being too big to process. Probably Databricks free edition has some limitations in that regard, so I managed to fix it, setting environment memory from standard (16GB) to High (32 GB)
