@@ -8,6 +8,8 @@
 
 2 [databricks free edition limitations](https://learn.microsoft.com/en-us/azure/databricks/getting-started/free-edition-limitations) 
 
+3 [File type recommendations in databricks offerings](https://docs.databricks.com/aws/en/files/files-recommendations)
+
 ### strava
 1 [strava api dev documentation](https://developers.strava.com/docs/reference/#api-models-DetailedAthlete)
 

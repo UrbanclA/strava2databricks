@@ -1,6 +1,6 @@
 # Databricks notebook source
 # MAGIC %md
-# MAGIC ## Data Transformation - B2S - ACTIVITY
+# MAGIC ## Data Transformation - B2S2G - ACTIVITY
 
 # COMMAND ----------
 
@@ -46,7 +46,7 @@ df_date_load.write.format("delta").mode("overwrite").saveAsTable("strava.silver.
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ## above, add a transformation to load everything in bronze delta table (append)
+# MAGIC ## SelfNote1: add a transformation to load everything in bronze delta table (append)
 
 # COMMAND ----------
 
@@ -56,9 +56,11 @@ df_date_load.write.format("delta").mode("overwrite").saveAsTable("strava.silver.
 # COMMAND ----------
 
 # DBTITLE 1,Select and clean columns, calculate end_date
-from utils import col, expr, date_format
+from utils import col, expr, date_format, round
 
 spark.sql("DROP TABLE IF EXISTS strava.gold.fact_activity")
+kmh_coeficient = 3.6
+cal_coeficient = 4.184
 
 df_fact_activity = (
     spark.table("strava.silver.activity")
@@ -69,7 +71,12 @@ df_fact_activity = (
         col("distance").alias("distance_m"),
         col("elapsed_time").alias("elapsed_time_s"),
         col("moving_time").alias("moving_time_s"),
-        col("average_speed").alias("average_speed_kmh"),
+        round(
+            (col("average_speed")*kmh_coeficient),
+            1).alias("average_speed_kmh"), #meters per second via strava api documentation
+        round(
+            (col("max_speed")*kmh_coeficient),
+            1).alias("max_speed_kmh"), #meters per second via strava api documentation
         col("elev_high"),
         col("elev_low"),
         col("total_elevation_gain").alias("elevation_gain_m"),
@@ -79,7 +86,9 @@ df_fact_activity = (
         date_format(col("start_date_local"), "HH:mm:ss").alias("activity_start_time"),
         col("max_heartrate"),
         col("average_heartrate"),
-        (col("kilojoules")/4).alias("calories"), #conversion from kj to calories
+        round(
+            (col("kilojoules")/cal_coeficient),
+            1).alias("calories"), #conversion from kj to calories
         col("average_temp").alias("average_temp_c"),
         col("athlete_count"),
         col("kudos_count"),
