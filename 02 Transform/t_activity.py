@@ -9,7 +9,8 @@
 
 # COMMAND ----------
 
-from utils import current_timestamp, date_format
+# DBTITLE 1,Load JSON, add commit_date and athlete_id, drop athlete column
+from utils import current_timestamp, date_format, col
 
 #json path
 json_path = "/Volumes/strava/bronze/source_files/last60activities.json"
@@ -17,19 +18,23 @@ json_path = "/Volumes/strava/bronze/source_files/last60activities.json"
 # create dataframe
 df = spark.read.json(json_path)
 
-#adding a timestamp of data load
+#adding a timestamp of data load and extracting athlete_id, then dropping athlete column
 df_date_load =(
     df.withColumn(
-        "date",
+        "commit_date",
         date_format(
             current_timestamp(),
             "dd-MM-yy"
         )
     )
+    .withColumn(
+        "athlete_id",
+        col("athlete.id")
+    )
+    .drop("athlete")
 )
 display(df_date_load)
 #display(df_date_load.columns)
-
 
 # COMMAND ----------
 
@@ -39,8 +44,11 @@ df_date_load.write.mode("overwrite").parquet(parquet_path)
 
 # COMMAND ----------
 
+# DBTITLE 1,Load to delta table with reordered columns
 #load to delta table, with overwrite mode (later append)
-df_date_load = spark.read.parquet(parquet_path)
+# Move 'id' and 'athlete_id' to the start of the table
+cols = ["id", "athlete_id"] + [c for c in df_date_load.columns if c not in ["id", "athlete_id"]]
+df_date_load = df_date_load.select(*cols)
 df_date_load.write.format("delta").mode("overwrite").saveAsTable("strava.silver.activity")
 
 # COMMAND ----------
@@ -55,20 +63,29 @@ df_date_load.write.format("delta").mode("overwrite").saveAsTable("strava.silver.
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC The following scripts will handle business logic, prepare data for star schema, and will include new transformations and columns once we decide to upgrade our model
+
+# COMMAND ----------
+
 # DBTITLE 1,Select and clean columns, calculate end_date
 from utils import col, expr, date_format, round
 
 spark.sql("DROP TABLE IF EXISTS strava.gold.fact_activity")
 kmh_coeficient = 3.6
 cal_coeficient = 4.184
+dist_coeficient = 1000
 
 df_fact_activity = (
     spark.table("strava.silver.activity")
     .select(
         col("id").alias("activity_id"),
-        col("athlete.id").alias("athlete_id"), #picks out only id for json object inside athlete column
+        col("athlete_id"),
         col("name").alias("activity_name"),
         col("distance").alias("distance_m"),
+        round(
+            (col("distance")/dist_coeficient),
+            2).alias("distance_km"),
         col("elapsed_time").alias("elapsed_time_s"),
         col("moving_time").alias("moving_time_s"),
         round(
@@ -94,7 +111,7 @@ df_fact_activity = (
         col("kudos_count"),
         col("comment_count"),
         col("total_photo_count"),
-        col("date")
+        col("commit_date")
     )
 )
 
