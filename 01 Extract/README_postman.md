@@ -1,14 +1,14 @@
 # Postman collection is synced to this GitHub repository.
-To-be-added are some notes and how I managed to create a working restAPI configuration, however it still isn´t smooth, which I have to tend to.
+Below is a preliminary guide on how I managed to create a working restAPI configuration, however the solution is far from being smooth or automated. 
+I will tackle this issue in accordance with my roadmap.
 
-At least all changes I make in Postman collection are synced automatically in the [postman json file](https://github.com/UrbanclA/strava2databricks/blob/9435ed7c8006271ad0446b087d64e3c9fab1f092/01%20Extract/postman.json), which can hopefully make some sense to you, the reader :D 
+At least all changes I make in my Postman project are synced automatically in the [postman json file](https://github.com/UrbanclA/strava2databricks/blob/9435ed7c8006271ad0446b087d64e3c9fab1f092/01%20Extract/postman.json), which can probably be imported in your own environment. 
+I realize some of my tokens are therefore public through this json file but I don't mind you gathering that data.
 
-## For import-related notebooks
+## For import-related notebooks, overall data transformation process
 Go to [02 Transform](https://github.com/UrbanclA/strava2databricks/tree/d434935ef9afdd27cdff0723b3d12e7f6d7fb0ca/02%20Transform)
 
 Feel free to reach out for any questions!
-
-Here is a clean, structured Markdown version of your guide. I’ve organized it into logical steps and added formatting to make it easier to read.
 
 ---
 
@@ -101,7 +101,7 @@ Once you have exchanged the code for an Access Token in Postman, you can start f
 <img width="2289" height="588" alt="image" src="https://github.com/user-attachments/assets/4bafeb76-9f3c-43a9-81cd-022d1c62f872" />
 
 ### Step 5: PRESS SEND AND HOPEFULLY YOU GET BACK A RESPONSE in JSON.
-* save the file and import it to Databricks volume and continue to 02 Transform module!
+* save the file and import it to Databricks volume and continue to [02 Transform](https://github.com/UrbanclA/strava2databricks/tree/d434935ef9afdd27cdff0723b3d12e7f6d7fb0ca/02%20Transform) module!
 
 ---
 
