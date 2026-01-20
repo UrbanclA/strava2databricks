@@ -182,7 +182,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://www.strava.com/api/v3/athlete/activities?access_token={{accessToken}}&per_page=60",
+					"raw": "https://www.strava.com/api/v3/athlete/activities?access_token={{accessToken}}&per_page=200",
 					"protocol": "https",
 					"host": [
 						"www",
@@ -204,6 +204,11 @@
 							"key": "per_page",
 							"value": "60",
 							"description": "last 60 activities,  no pagination",
+							"disabled": true
+						},
+						{
+							"key": "per_page",
+							"value": "200",
 							"type": "text"
 						}
 					]
