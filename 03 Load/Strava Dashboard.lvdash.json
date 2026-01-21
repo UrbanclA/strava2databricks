@@ -593,7 +593,7 @@
           },
           "position": {
             "x": 3,
-            "y": 9,
+            "y": 15,
             "width": 1,
             "height": 17
           }
@@ -1293,9 +1293,124 @@
           },
           "position": {
             "x": 3,
-            "y": 0,
+            "y": 6,
             "width": 1,
             "height": 9
+          }
+        },
+        {
+          "widget": {
+            "name": "number-of-activities-per-week",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "42e4505d",
+                  "fields": [
+                    {
+                      "name": "weekly(activity_date)",
+                      "expression": "DATE_TRUNC(\"WEEK\", `activity_date`)"
+                    },
+                    {
+                      "name": "count(activity_id)",
+                      "expression": "COUNT(`activity_id`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "weekly(activity_date)",
+                  "axis": {
+                    "labelAngle": 45,
+                    "hideLabels": false,
+                    "hideTitle": true
+                  },
+                  "format": {
+                    "type": "date",
+                    "date": "year-week",
+                    "leadingZeros": false
+                  },
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(activity_id)",
+                  "axis": {
+                    "hideTitle": true,
+                    "hideLabels": false
+                  },
+                  "scale": {
+                    "type": "quantitative",
+                    "domain": {
+                      "min": 0,
+                      "max": 8
+                    }
+                  }
+                }
+              },
+              "frame": {
+                "title": "Number of activities per week",
+                "showTitle": true
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ],
+                "size": 0.3
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 0,
+            "width": 3,
+            "height": 6
           }
         }
       ],
@@ -1304,6 +1419,66 @@
     {
       "name": "dd733a0d",
       "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "09a45a51",
+            "queries": [
+              {
+                "name": "dashboards/01f0f0933ff31591bbee1c61ad8e3ba0/datasets/01f0f0934d4f1230887464cd16520c8f_activity_date",
+                "query": {
+                  "datasetName": "42e4505d",
+                  "fields": [
+                    {
+                      "name": "activity_date",
+                      "expression": "`activity_date`"
+                    },
+                    {
+                      "name": "activity_date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "activity_date",
+                    "queryName": "dashboards/01f0f0933ff31591bbee1c61ad8e3ba0/datasets/01f0f0934d4f1230887464cd16520c8f_activity_date"
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true
+              },
+              "selection": {
+                "defaultSelection": {
+                  "range": {
+                    "dataType": "DATE",
+                    "min": {
+                      "value": "2025-04-07T00:00:00.000"
+                    },
+                    "max": {
+                      "value": "2025-07-31T23:59:59.999"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
       "pageType": "PAGE_TYPE_GLOBAL_FILTERS"
     }
   ],

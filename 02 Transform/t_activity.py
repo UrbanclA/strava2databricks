@@ -22,11 +22,8 @@ df = spark.read.json(json_path)
 df_date_load =(
     df.withColumn(
         "commit_date",
-        date_format(
-            current_timestamp(),
-            "dd-MM-yy"
+            current_timestamp()
         )
-    )
     .withColumn(
         "athlete_id",
         col("athlete.id")
@@ -69,7 +66,7 @@ df_date_load.write.format("delta").mode("overwrite").saveAsTable("strava.silver.
 # COMMAND ----------
 
 # DBTITLE 1,Select and clean columns, calculate end_date
-from utils import col, expr, date_format, round
+from utils import col, expr, to_date, round
 
 spark.sql("DROP TABLE IF EXISTS strava.gold.fact_activity")
 kmh_coeficient = 3.6
@@ -99,7 +96,7 @@ df_fact_activity = (
         col("total_elevation_gain").alias("elevation_gain_m"),
         col("type").alias("activity_type"),
         col("sport_type"),
-        date_format(col("start_date_local"), "dd-MM-yyyy").alias("activity_date"),
+        to_date(col("start_date_local")).alias("activity_date"),
         date_format(col("start_date_local"), "HH:mm:ss").alias("activity_start_time"),
         col("max_heartrate"),
         col("average_heartrate"),
@@ -111,11 +108,11 @@ df_fact_activity = (
         col("kudos_count"),
         col("comment_count"),
         col("total_photo_count"),
-        col("commit_date")
-    )
+        col("commit_date").cast("date")
+        )
 )
-
 df_fact_activity.write.format("delta").mode("overwrite").saveAsTable("strava.gold.fact_activity")
+
 
 # COMMAND ----------
 
