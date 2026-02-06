@@ -24,6 +24,8 @@ Tools that were used and documentation (tutorials, links etc) - in another .md f
 
 ![](https://github.com/UrbanclA/strava2databricks/blob/b8089600fb84b388a7187312f6600f5e98b69b8b/99%20Pictures/roadmap_step5.jpg)
 
+Roadmap graphic design by Tilen from Uniq Agency [LinkedIn](https://www.linkedin.com/in/tilen-vogrinec-253537281/)
+
 ## 01 - extract from Strava with Postman
 
 Added description of the process in a seperate [markdown file](https://github.com/UrbanclA/strava2databricks/blob/348ec73f52e027056d8c3ecd4e339fbbdf17455d/01%20Extract/README_postman.md) 
