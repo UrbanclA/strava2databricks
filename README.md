@@ -20,7 +20,9 @@ Extracting, transforming and visualizing data from personal Strava account.
 This dataflow is composed of restAPI to get .json filesPostman and processing through Databricks platform. 
 
 Tools that were used and documentation (tutorials, links etc) - in another .md file, ADD EVERYTHING from gdrive notes
-## 00 Roadmap - soon to be added, draft is done
+## 00 - Roadmap
+
+![](https://github.com/UrbanclA/strava2databricks/blob/b8089600fb84b388a7187312f6600f5e98b69b8b/99%20Pictures/roadmap_step5.jpg)
 
 ## 01 - extract from Strava with Postman
 
