@@ -1,25 +1,29 @@
-## Strava personal dashboard
-This folder defines all source code for the 'strava2databricks' pipeline:
+## Data Integration Build #1
+This repository defines all source code for the ongoing 'strava2databricks' dataflow. This is build #1 of my Data Integration Portfolio (the DIP).
 
 - `00 Analyze`: Ad-hoc notebooks used to explore the data processed by this pipeline, from start to finish
 - `01 Extract`: KnowHow on how to import data from source. In this case, extraction is done with Postman. 
 - `02 Transform`: All dataset definitions and transformations.
 - `03 Load`: Visualized data via dashboards.
 
-## Getting Started
+## Software Stack
 
-To get started, go to the `00 Analyze` folder -- there you can explore data through prepared notebooks:
-
-* By convention, every dataset under `02 Transform` is in a separate file.
-* Take a look at the sample under "to-be-added" to get familiar with the syntax.
-  Read more about the syntax at https://docs.databricks.com/dlt/sql-ref.html.
+* Strava - Source
+* Postman - Extraction
+* Databricks (Free Edition) - Transformations and Visualizations
+* GitHub - Branching and Versioning, Code Vault, Documentation
+* GoogleDrive - Administration, Notes, Ideas
+* Gemini - Guidance
+* Udemy - Python Course
+* and loads of tutorials, blogs - gathered here [useful_links](https://github.com/UrbanclA/strava2databricks/blob/28721dddac559212841b1857996ceb8813dfd908/useful_links.md)
 
 
 ## Introduction
-Extracting, transforming and visualizing data from personal Strava account. 
-This dataflow is composed of restAPI to get .json filesPostman and processing through Databricks platform. 
+Looking at my own habbits, an active guy who uses Strava on a weekly basis, I thought to myself, what better way to learn something new with data I produce and am familiar with? 
+Thats when the idea of extracting, transforming and visualizing data from my personal Strava account really came to life.
 
-Tools that were used and documentation (tutorials, links etc) - in another .md file, ADD EVERYTHING from gdrive notes
+This dataflow is composed of restAPI setup to extract .json files with the help of Postman. The rest is done in Databricks platform with PySpark.
+
 ## 00 - Roadmap
 
 ![](https://github.com/UrbanclA/strava2databricks/blob/b8089600fb84b388a7187312f6600f5e98b69b8b/99%20Pictures/roadmap_step5.jpg)
@@ -28,12 +32,14 @@ Roadmap graphic design by Tilen from Uniq Agency [LinkedIn](https://www.linkedin
 
 ## 01 - extract from Strava with Postman
 
-Added description of the process in a seperate [markdown file](https://github.com/UrbanclA/strava2databricks/blob/348ec73f52e027056d8c3ecd4e339fbbdf17455d/01%20Extract/README_postman.md) 
+Read the detailed description of the process in a seperate [markdown file](https://github.com/UrbanclA/strava2databricks/blob/348ec73f52e027056d8c3ecd4e339fbbdf17455d/01%20Extract/README_postman.md) 
 
-## 02 - bronze - Import json file to DataBricks Volume
+## 02 - bronze - Import json file to Databricks Volume
+
 utils file to add dataframe, add timestamp
+
 ### Creating a Parquet file
-create delta file following databricks recommendations [useful_links](https://github.com/UrbanclA/strava2databricks/blob/28721dddac559212841b1857996ceb8813dfd908/useful_links.md)
+Creatinh a delta file following databricks recommendations [useful_links](https://github.com/UrbanclA/strava2databricks/blob/28721dddac559212841b1857996ceb8813dfd908/useful_links.md)
 
 `HotTip`
 Initially, when I was importing the .json file to the Databricks volume, there was an error. After some research, it seemed like an issue with Serverless cluster and the file being too big to process. Probably Databricks free edition has some limitations in that regard, so I managed to fix it, setting environment memory from standard (16GB) to High (32 GB)
