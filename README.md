@@ -1,4 +1,4 @@
-This is a part of my [Data Integration Portfolio](https://github.com/UrbanclA/strava2databricks/blob/d56dcb303c3ce57205b07050f7bcfe921d6449ae/DIP.md)
+This is a part of my [Data Integration Portfolio](https://github.com/UrbanclA/strava2databricks/blob/main/DIP.md)
 
 ## Data Integration Build #1
 This repository defines all source code for the ongoing 'strava2databricks' dataflow. 
@@ -19,7 +19,7 @@ This repository defines all source code for the ongoing 'strava2databricks' data
 * GoogleDrive - Administration, Notes, Ideas
 * Gemini - Guidance
 * Udemy - Python Course
-* and loads of tutorials, blogs - gathered here [useful_links](https://github.com/UrbanclA/strava2databricks/blob/28721dddac559212841b1857996ceb8813dfd908/useful_links.md)
+* and loads of tutorials, blogs - gathered here [useful_links](https://github.com/UrbanclA/strava2databricks/blob/main/useful_links.md)
 
 
 # Introduction
@@ -30,7 +30,7 @@ This dataflow is composed of restAPI setup to extract .json files with the help 
 
 ## 00 - Roadmap
 
-![](https://github.com/UrbanclA/strava2databricks/blob/d6714e13f3b412e4fb24feaa64eaaeb2e7fa8e1d/99%20Pictures/Roadmap_step_5.jpg)
+![](https://github.com/UrbanclA/strava2databricks/blob/main/99%20Pictures/Roadmap_step_5.jpg)
 
 Roadmap graphic design by Tilen from Uniq Agency [LinkedIn](https://www.linkedin.com/in/tilen-vogrinec-253537281/)
 
@@ -40,11 +40,12 @@ Following Medallion architecture, here's how I setup my databricks catalog.
 The name of my database will be strava, with bronze, silver and gold layers ready as schemas. 
 Information_schema is default and may be used in the future for user permissions and audit.
 
-![](https://github.com/UrbanclA/strava2databricks/blob/754a53cb87ccbc678b4ff145eefabf825d35c061/99%20Pictures/catalog-strava.png)
+![](https://github.com/UrbanclA/strava2databricks/blob/main/99%20Pictures/catalog-strava.png)
 
 ## 01 - extraction via Postman
 
-Read the detailed description and step-by-step guide of the process in a seperate [markdown file](https://github.com/UrbanclA/strava2databricks/blob/348ec73f52e027056d8c3ecd4e339fbbdf17455d/01%20Extract/README_postman.md) 
+Read the detailed description and step-by-step guide of the process in a seperate [markdown file](https://github.com/UrbanclA/strava2databricks/blob/main/01%20Extract/README_postman.md) 
+
 For the first export, we are looking at only 1 table (activities) and extracting only last 60 activities at the time. Hence the name of the file is
 `last60activities.json`
 
@@ -52,18 +53,18 @@ For the first export, we are looking at only 1 table (activities) and extracting
 
 For now, I'm uploading the extracted .json file manually to databricks volume into source_files folder.
 
-![](https://github.com/UrbanclA/strava2databricks/blob/754a53cb87ccbc678b4ff145eefabf825d35c061/99%20Pictures/bronze-sourcefiles.png)
+![](https://github.com/UrbanclA/strava2databricks/blob/main/99%20Pictures/bronze-sourcefiles.png)
 
 The utils.py notebook holds some of the most referenced functions in other notebooks, such as add timestamp.
 
 ### Creating a Parquet file
 Once we imported .json file in bronze schema, we start our transformation flow. 
-With notebook [t_activity](https://github.com/UrbanclA/strava2databricks/blob/754a53cb87ccbc678b4ff145eefabf825d35c061/02%20Transform/t_activity.py) we are creating a delta parquet file following databricks recommendations found in [useful_links](https://github.com/UrbanclA/strava2databricks/blob/28721dddac559212841b1857996ceb8813dfd908/useful_links.md)
+With notebook [t_activity](https://github.com/UrbanclA/strava2databricks/blob/main/02%20Transform/t_activity.py) we are creating a delta parquet file following databricks recommendations found in [useful_links](https://github.com/UrbanclA/strava2databricks/blob/main/useful_links.md)
 
 Under `initial_load` folder now lives our delta parquet file, ready to be ingested in silver table
 
 
-![](https://github.com/UrbanclA/strava2databricks/blob/754a53cb87ccbc678b4ff145eefabf825d35c061/99%20Pictures/bronze-parquetfile.png)
+![](https://github.com/UrbanclA/strava2databricks/blob/main/99%20Pictures/bronze-parquetfile.png)
 
 `Important` to note is, in this step we are adding a timestamp to the dataset as new column, so we know when the file was processed. It will come in handy in the future once we start appending new data.
 
@@ -77,7 +78,7 @@ Initially, when I was importing the .json file to the Databricks volume, there w
 `WIP`
 Clean the data, add hashkeys and hashdiffs - soon
 
-![](https://github.com/UrbanclA/strava2databricks/blob/754a53cb87ccbc678b4ff145eefabf825d35c061/99%20Pictures/silver_activity.png)
+![](https://github.com/UrbanclA/strava2databricks/blob/main/99%20Pictures/silver_activity.png)
 
 ### 02 - gold - create dimensions and fact tables
 
